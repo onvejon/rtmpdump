@@ -23,16 +23,23 @@
  */
 
 #ifdef _WIN32
-
+#include <sys/types.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
 #ifdef _MSC_VER	/* MSVC */
+#if(_MSC_VER < 1916)
 #define snprintf _snprintf
+#endif
 #define strcasecmp stricmp
 #define strncasecmp strnicmp
+#if(_MSC_VER < 1916)
 #define vsnprintf _vsnprintf
 #endif
+#endif
+
+#pragma warning ( disable : 4507 4996 )
+#pragma warning ( once : 4005 4018 )
 
 #define GetSockError()	WSAGetLastError()
 #define SetSockError(e)	WSASetLastError(e)

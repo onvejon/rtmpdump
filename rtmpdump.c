@@ -34,8 +34,9 @@
 #include "librtmp/log.h"
 
 #ifdef WIN32
-#define fseeko fseeko64
-#define ftello ftello64
+#include <sys/stat.h>
+#define fseeko _fseeki64 
+#define ftello _ftelli64
 #include <io.h>
 #include <fcntl.h>
 #define	SET_BINMODE(f)	setmode(fileno(f), O_BINARY)
@@ -279,7 +280,7 @@ GetLastKeyframe(FILE * file,	// output file [in]
 		uint32_t * nInitialFrameSize)	// length of initialFrame [out]
 {
   const size_t bufferSize = 16;
-  char buffer[bufferSize];
+  char* buffer = (char*)malloc(bufferSize);
   uint8_t dataType;
   int bAudioOnly;
   off_t size;

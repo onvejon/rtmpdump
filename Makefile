@@ -5,10 +5,10 @@ prefix=/usr/local
 CC=$(CROSS_COMPILE)gcc
 LD=$(CROSS_COMPILE)ld
 
-SYS=posix
-#SYS=mingw
+#SYS=posix
+SYS=mingw
 
-CRYPTO=OPENSSL
+#CRYPTO=OPENSSL
 #CRYPTO=POLARSSL
 #CRYPTO=GNUTLS
 LIBZ=-lz
